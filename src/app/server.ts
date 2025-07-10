@@ -6,7 +6,7 @@ async function main() {
     try {
         await mongoose.connect(config.db_uri as string)
         app.listen(config.port, () =>
-            console.log('portfolio running on', config.port)
+            console.log('backend running on', config.port)
         )
     } catch (error) {
         console.error('failed to connect', error)

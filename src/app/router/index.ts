@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import skillRoutes from '../modules/Skill/skill.router'
+import MemberRoutes from '../modules/Member/member.router'
 
 const router = Router()
 const routes = [
     {
-        path: '/skills',
-        route: skillRoutes,
+        path: '/members',
+        route: MemberRoutes,
     },
 ]
 
