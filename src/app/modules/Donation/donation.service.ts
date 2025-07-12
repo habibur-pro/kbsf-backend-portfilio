@@ -10,15 +10,15 @@ const giveDonation = async (payload: IDonationPayload) => {
     const session = await mongoose.startSession()
     session.startTransaction()
     try {
-        if (payload.prodjectId) {
+        if (payload.projectId) {
             const project = await Project.findOne({
-                id: payload.prodjectId,
+                id: payload.projectId,
             }).session(session)
             if (!project)
                 throw new ApiError(httpsStatus.BAD_REQUEST, 'project not found')
             await Project.findOneAndUpdate(
                 { id: project.id },
-                { $inc: { currentAmout: payload.amount } },
+                { $inc: { currentAmount: payload.amount } },
                 { new: true, session }
             )
         }

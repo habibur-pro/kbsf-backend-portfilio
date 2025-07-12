@@ -12,5 +12,5 @@ export interface IDonation {
 }
 
 export interface IDonationPayload extends IDonation {
-    prodjectId?: string
+    projectId?: string
 }

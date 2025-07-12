@@ -2,6 +2,9 @@ import { Router } from 'express'
 import MemberRoutes from '../modules/Member/member.router'
 import AuthRoutes from '../modules/Auth/auth.router'
 import DonationRouter from '../modules/Donation/donation.router'
+import AccountsRoutes from '../modules/Accounts/account.router'
+import ProjectRoutes from '../modules/Project/project.router'
+import DashboardRouter from '../modules/dashboard/dashboard.router'
 
 const router = Router()
 const routes = [
@@ -16,6 +19,18 @@ const routes = [
     {
         path: '/donations',
         route: DonationRouter,
+    },
+    {
+        path: '/accounts',
+        route: AccountsRoutes,
+    },
+    {
+        path: '/projects',
+        route: ProjectRoutes,
+    },
+    {
+        path: '/dashboard',
+        route: DashboardRouter,
     },
 ]
 

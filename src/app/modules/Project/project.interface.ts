@@ -6,7 +6,7 @@ export interface IProject {
     projectType: EProjectType
     projectName: string
     targetAmount: number
-    currentAmout: number
+    currentAmount: number
     status: EProjectStatus
     endDate: Date
     projectDescription: string

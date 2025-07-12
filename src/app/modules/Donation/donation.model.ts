@@ -1,8 +1,6 @@
-import { model, Schema } from 'mongoose'
+import { model, Schema, Model, Document } from 'mongoose'
 import { IDonation } from './donation.interface'
 import idGenerator from '../../helpers/idGenerator'
-import { Model } from 'mongoose'
-import { Document } from 'mongoose'
 
 const DonationSchema = new Schema<IDonation>(
     {
@@ -41,7 +39,7 @@ const DonationSchema = new Schema<IDonation>(
                 values: ['pending', 'approved', 'rejected'],
                 message: 'Status must be either pending, approved, or rejected',
             },
-            required: [true, 'Status is required'],
+            default: 'approved',
         },
     },
     {

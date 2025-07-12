@@ -6,6 +6,11 @@ import { Document } from 'mongoose'
 
 const ProjectSchema = new Schema(
     {
+        id: {
+            type: String,
+            required: [true, 'id is required'],
+            unique: true,
+        },
         projectNumber: {
             type: String,
             required: [true, 'Project number is required'],
@@ -28,7 +33,7 @@ const ProjectSchema = new Schema(
             type: Number,
             default: 0,
         },
-        currentAmout: {
+        currentAmount: {
             type: Number,
             required: [true, 'Current amount is required'],
             default: 0,
@@ -39,7 +44,6 @@ const ProjectSchema = new Schema(
                 values: Object.values(EProjectStatus),
                 message: 'Invalid project status',
             },
-            required: [true, 'Project status is required'],
             default: EProjectStatus.UPCOMING,
         },
         endDate: {

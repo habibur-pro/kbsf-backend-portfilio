@@ -25,7 +25,6 @@ const adminLogin = async (payload: { phone: string; password: string }) => {
     if (!member) throw new ApiError(httpStatus.BAD_REQUEST, 'user not found')
     const auth = await Auth.findOne({ phone: payload.phone })
     if (!auth) throw new ApiError(httpStatus.BAD_REQUEST, 'user not found')
-
     const compare = bcrypt.compare(payload.password, auth.password)
     if (!compare) throw new ApiError(httpStatus.BAD_REQUEST, 'wrong password')
     const token = jwt.sign(
