@@ -38,3 +38,7 @@ export enum EProjectStatus {
     CLOSED = 'closed',
     ARCHIVED = 'archived',
 }
+export enum EMessageStatus {
+    READ = 'read',
+    UNREAD = 'unread',
+}

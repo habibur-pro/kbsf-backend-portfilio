@@ -5,6 +5,8 @@ import DonationRouter from '../modules/Donation/donation.router'
 import AccountsRoutes from '../modules/Accounts/account.router'
 import ProjectRoutes from '../modules/Project/project.router'
 import DashboardRouter from '../modules/dashboard/dashboard.router'
+import GalleryRoutes from '../modules/Gallery/gallery.router'
+import MessageRoutes from '../modules/Message/message.router'
 
 const router = Router()
 const routes = [
@@ -31,6 +33,14 @@ const routes = [
     {
         path: '/dashboard',
         route: DashboardRouter,
+    },
+    {
+        path: '/gallery',
+        route: GalleryRoutes,
+    },
+    {
+        path: '/messages',
+        route: MessageRoutes,
     },
 ]
 
