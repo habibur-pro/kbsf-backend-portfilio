@@ -10,3 +10,7 @@ export interface IDonation {
     createdAt: Date
     updatedAt: Date
 }
+
+export interface IDonationPayload extends IDonation {
+    prodjectId?: string
+}

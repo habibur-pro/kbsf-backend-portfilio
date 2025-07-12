@@ -1,0 +1,69 @@
+import { Model, Schema, model } from 'mongoose'
+import { EProjectStatus, EProjectType } from '../../enum'
+import { IProject } from './project.interface'
+import idGenerator from '../../helpers/idGenerator'
+import { Document } from 'mongoose'
+
+const ProjectSchema = new Schema(
+    {
+        projectNumber: {
+            type: String,
+            required: [true, 'Project number is required'],
+            unique: true,
+        },
+        projectType: {
+            type: String,
+            enum: {
+                values: Object.values(EProjectType),
+                message: 'Invalid project type',
+            },
+            required: [true, 'Project type is required'],
+        },
+        projectName: {
+            type: String,
+            required: [true, 'Project name is required'],
+            trim: true,
+        },
+        targetAmount: {
+            type: Number,
+            default: 0,
+        },
+        currentAmout: {
+            type: Number,
+            required: [true, 'Current amount is required'],
+            default: 0,
+        },
+        status: {
+            type: String,
+            enum: {
+                values: Object.values(EProjectStatus),
+                message: 'Invalid project status',
+            },
+            required: [true, 'Project status is required'],
+            default: EProjectStatus.UPCOMING,
+        },
+        endDate: {
+            type: Date,
+            default: null,
+        },
+        projectDescription: {
+            type: String,
+            required: [true, 'Project description is required'],
+        },
+    },
+    {
+        timestamps: true,
+    }
+)
+
+ProjectSchema.pre<IProject>('validate', async function (next) {
+    if (!this.id) {
+        this.id = await idGenerator(
+            this.constructor as Model<Document & IProject>
+        )
+    }
+    next()
+})
+
+const Project = model('project', ProjectSchema)
+export default Project

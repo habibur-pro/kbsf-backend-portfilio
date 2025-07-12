@@ -22,3 +22,19 @@ export enum EBloodGroup {
     OPositive = 'O+',
     ONegative = 'O-',
 }
+
+export enum EProjectType {
+    Fundraising = 'fundraising',
+    Volunteer = 'volunteer',
+}
+
+export enum EProjectStatus {
+    UPCOMING = 'upcoming',
+    ACTIVE = 'active',
+    COMPLETED = 'completed',
+    CANCELLED = 'cancelled',
+    PAUSED = 'paused',
+    DRAFT = 'draft',
+    CLOSED = 'closed',
+    ARCHIVED = 'archived',
+}

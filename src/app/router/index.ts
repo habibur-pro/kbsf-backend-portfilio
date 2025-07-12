@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import MemberRoutes from '../modules/Member/member.router'
 import AuthRoutes from '../modules/Auth/auth.router'
+import DonationRouter from '../modules/Donation/donation.router'
 
 const router = Router()
 const routes = [
@@ -11,6 +12,10 @@ const routes = [
     {
         path: '/auth',
         route: AuthRoutes,
+    },
+    {
+        path: '/donations',
+        route: DonationRouter,
     },
 ]
 
