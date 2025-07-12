@@ -1,3 +1,5 @@
+import { Types } from 'mongoose'
+
 export interface IDonation {
     id: string
     name: string
@@ -6,11 +8,9 @@ export interface IDonation {
     transactionId: string
     paymentMethod: string
     senderNumber: string
+    projectId: string
+    project: Types.ObjectId
     status: string
     createdAt: Date
     updatedAt: Date
-}
-
-export interface IDonationPayload extends IDonation {
-    projectId?: string
 }

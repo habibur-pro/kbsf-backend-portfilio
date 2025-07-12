@@ -33,6 +33,15 @@ const DonationSchema = new Schema<IDonation>(
             type: String,
             default: null,
         },
+        projectId: {
+            type: String,
+            default: null,
+        },
+        project: {
+            type: Schema.Types.ObjectId,
+            ref: 'project',
+            default: null,
+        },
         status: {
             type: String,
             enum: {

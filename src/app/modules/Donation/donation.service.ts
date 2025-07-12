@@ -1,15 +1,16 @@
 import mongoose from 'mongoose'
-import { IDonationPayload } from './donation.interface'
 import { Donation } from './donation.model'
 import Project from '../Project/project.model'
 import ApiError from '../../helpers/ApiErrot'
 import httpsStatus from 'http-status'
 import Accounts from '../Accounts/accounts.model'
+import { IDonation } from './donation.interface'
 
-const giveDonation = async (payload: IDonationPayload) => {
+const giveDonation = async (payload: Partial<IDonation>) => {
     const session = await mongoose.startSession()
     session.startTransaction()
     try {
+        const donationPayload = { ...payload }
         if (payload.projectId) {
             const project = await Project.findOne({
                 id: payload.projectId,
@@ -21,8 +22,10 @@ const giveDonation = async (payload: IDonationPayload) => {
                 { $inc: { currentAmount: payload.amount } },
                 { new: true, session }
             )
+            donationPayload.project = project._id
         }
-        await Donation.create([payload], { session })
+
+        await Donation.create([donationPayload], { session })
         const accounts = await Accounts.findOne().session(session)
         if (!accounts)
             throw new ApiError(httpsStatus.BAD_REQUEST, 'accounts not found')
@@ -51,10 +54,12 @@ const giveDonation = async (payload: IDonationPayload) => {
 
 const getDonations = async () => {
     const donations = await Donation.find()
+        .populate('project')
+        .sort({ createdAt: -1 })
     return donations
 }
 const getDonation = async (id: string) => {
-    const donation = await Donation.findOne({ id })
+    const donation = await Donation.findOne({ id }).populate('project')
     return donation
 }
 
