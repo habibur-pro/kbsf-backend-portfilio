@@ -1,12 +1,52 @@
+import mongoose from 'mongoose'
 import { IDonationPayload } from './donation.interface'
 import { Donation } from './donation.model'
+import Project from '../Project/project.model'
+import ApiError from '../../helpers/ApiErrot'
+import httpsStatus from 'http-status'
+import Accounts from '../Accounts/accounts.model'
 
 const giveDonation = async (payload: IDonationPayload) => {
-    if (payload.prodjectId) {
-        // const project = await
+    const session = await mongoose.startSession()
+    session.startTransaction()
+    try {
+        if (payload.prodjectId) {
+            const project = await Project.findOne({
+                id: payload.prodjectId,
+            }).session(session)
+            if (!project)
+                throw new ApiError(httpsStatus.BAD_REQUEST, 'project not found')
+            await Project.findOneAndUpdate(
+                { id: project.id },
+                { $inc: { currentAmout: payload.amount } },
+                { new: true, session }
+            )
+        }
+        await Donation.create([payload], { session })
+        const accounts = await Accounts.findOne().session(session)
+        if (!accounts)
+            throw new ApiError(httpsStatus.BAD_REQUEST, 'accounts not found')
+        await Accounts.findByIdAndUpdate(
+            accounts._id,
+            {
+                $inc: {
+                    totalBalance: payload.amount,
+                    totalEarning: payload.amount,
+                },
+            },
+            { new: true, session }
+        )
+        await session.commitTransaction()
+        return { message: 'thanks for donation' }
+    } catch (error: any) {
+        await session.abortTransaction()
+        throw new ApiError(
+            httpsStatus.BAD_REQUEST,
+            error?.message || 'something went wrong'
+        )
+    } finally {
+        await session.endSession()
     }
-    await Donation.create(payload)
-    return { message: 'thanks for donation' }
 }
 
 const getDonations = async () => {
