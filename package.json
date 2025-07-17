@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "node build/app/server.js",
+        "start": "node public/app/server.js",
         "dev": "ts-node-dev --respawn --transpile-only ./src/app/server.ts",
         "build": "tsc",
         "lint": "eslint src/**/*.ts",
