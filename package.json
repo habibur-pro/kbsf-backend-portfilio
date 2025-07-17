@@ -5,6 +5,7 @@
     "license": "MIT",
     "scripts": {
         "start": "node public/app/server.js",
+        "vercel-build": "npm run build",
         "dev": "ts-node-dev --respawn --transpile-only ./src/app/server.ts",
         "build": "tsc",
         "lint": "eslint src/**/*.ts",
