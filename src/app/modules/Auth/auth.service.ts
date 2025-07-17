@@ -10,20 +10,22 @@ const verifyAdminLogin = async (payload: {
     phone: string
     password: string
 }) => {
-    const member = await Member.findOne({ phone: payload.phone })
+    console.log('payload', payload)
+    const member = await Member.findOne({ phone: payload.phone, role: 'admin' })
     if (!member) throw new ApiError(httpStatus.BAD_REQUEST, 'user not found')
-    const auth = await Auth.findOne({ phone: payload.phone })
+    const auth = await Auth.findOne({ phone: payload.phone, role: 'admin' })
     if (!auth) throw new ApiError(httpStatus.BAD_REQUEST, 'user not found')
-
+    console.log('auth', auth)
+    console.log('member', member)
     const compare = bcrypt.compare(payload.password, auth.password)
     if (!compare) throw new ApiError(httpStatus.BAD_REQUEST, 'wrong password')
 
     return { role: member.role }
 }
 const adminLogin = async (payload: { phone: string; password: string }) => {
-    const member = await Member.findOne({ phone: payload.phone })
+    const member = await Member.findOne({ phone: payload.phone, role: 'admin' })
     if (!member) throw new ApiError(httpStatus.BAD_REQUEST, 'user not found')
-    const auth = await Auth.findOne({ phone: payload.phone })
+    const auth = await Auth.findOne({ phone: payload.phone, role: 'admin' })
     if (!auth) throw new ApiError(httpStatus.BAD_REQUEST, 'user not found')
     const compare = bcrypt.compare(payload.password, auth.password)
     if (!compare) throw new ApiError(httpStatus.BAD_REQUEST, 'wrong password')
@@ -37,6 +39,7 @@ const adminLogin = async (payload: { phone: string; password: string }) => {
         role: member.role,
         email: member.email,
         photo: member.photo,
+        phone: member.phone,
         accessToken: token,
     }
     return responseData

@@ -5,7 +5,10 @@ import httpStatus from 'http-status'
 import bcrypt from 'bcrypt'
 import Auth from '../Auth/auth.model'
 import mongoose from 'mongoose'
-const addMember = async (payload: Partial<IMember>) => {
+export interface IMemberPayload extends Partial<IMember> {
+    password?: string
+}
+const addMember = async (payload: IMemberPayload) => {
     const session = await mongoose.startSession()
     session.startTransaction()
     try {
@@ -24,14 +27,24 @@ const addMember = async (payload: Partial<IMember>) => {
         const newMember = await Member.create([payload], { session: session })
 
         const saltRounds = 10
-        const hashedPassword = await bcrypt.hash('kbsf.com', saltRounds)
-        Auth.create({
-            email: newMember[0].email,
-            userId: newMember[0].id,
-            phone: newMember[0].phone,
-            role: 'user',
-            password: hashedPassword,
-        })
+        const hashedPassword = await bcrypt.hash(
+            payload?.password || 'kbsf.com',
+            saltRounds
+        )
+        console.log(payload.password, hashedPassword)
+        await Auth.create(
+            [
+                {
+                    email: newMember[0].email,
+                    userId: newMember[0].id,
+                    phone: newMember[0].phone,
+                    role: 'user',
+                    password: hashedPassword,
+                },
+            ],
+            { session: session }
+        )
+
         await session.commitTransaction()
         return { message: 'member added' }
     } catch (error: any) {
