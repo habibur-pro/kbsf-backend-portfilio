@@ -1,4 +1,4 @@
-import { EProjectStatus } from '../../enum'
+import { EDonationStatus, EProjectStatus } from '../../enum'
 import { Donation } from '../Donation/donation.model'
 import Member from '../Member/member.model'
 import Project from '../Project/project.model'
@@ -144,11 +144,15 @@ const getDashboardSummary = async () => {
 
         return {
             label,
-            ডোনেশন: donationEntry?.totalAmount || 0,
-            'নতুন সদস্য': userEntry?.count || 0,
+            donations: donationEntry?.totalAmount || 0,
+            members: userEntry?.count || 0,
         }
     })
-
+    const newDonations = await Donation.find({
+        status: EDonationStatus.APPROVED,
+    })
+        .sort({ createdAt: -1 })
+        .limit(5)
     return {
         totalDonation,
         totalDonationCount,
@@ -156,6 +160,7 @@ const getDashboardSummary = async () => {
         totalActiveProjects,
         last6MonthsChart,
         last7DaysChart,
+        newDonations,
     }
 }
 

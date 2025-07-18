@@ -1,6 +1,7 @@
 import { model, Schema, Model, Document } from 'mongoose'
 import { IDonation } from './donation.interface'
 import idGenerator from '../../helpers/idGenerator'
+import { EDonationStatus, EPaymentMethod } from '../../enum'
 
 const DonationSchema = new Schema<IDonation>(
     {
@@ -11,7 +12,7 @@ const DonationSchema = new Schema<IDonation>(
         },
         name: {
             type: String,
-            required: [true, 'Name is required'],
+            default: '-',
         },
         userId: {
             type: String,
@@ -27,7 +28,8 @@ const DonationSchema = new Schema<IDonation>(
         },
         paymentMethod: {
             type: String,
-            required: [true, 'Payment method is required'],
+            enum: Object.values(EPaymentMethod),
+            default: EPaymentMethod.Others,
         },
         senderNumber: {
             type: String,
@@ -42,13 +44,21 @@ const DonationSchema = new Schema<IDonation>(
             ref: 'project',
             default: null,
         },
+        projectName: {
+            type: String,
+            default: null,
+        },
+        notes: {
+            type: String,
+            default: null,
+        },
         status: {
             type: String,
             enum: {
-                values: ['pending', 'approved', 'rejected'],
+                values: Object.values(EDonationStatus),
                 message: 'Status must be either pending, approved, or rejected',
             },
-            default: 'approved',
+            default: EDonationStatus.APPROVED,
         },
     },
     {

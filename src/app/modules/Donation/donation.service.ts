@@ -8,6 +8,7 @@ import { IDonation } from './donation.interface'
 
 const giveDonation = async (payload: Partial<IDonation>) => {
     const session = await mongoose.startSession()
+    console.log(payload)
     session.startTransaction()
     try {
         const donationPayload = { ...payload }
@@ -23,6 +24,7 @@ const giveDonation = async (payload: Partial<IDonation>) => {
                 { new: true, session }
             )
             donationPayload.project = project._id
+            donationPayload.projectName = project.projectName
         }
 
         await Donation.create([donationPayload], { session })

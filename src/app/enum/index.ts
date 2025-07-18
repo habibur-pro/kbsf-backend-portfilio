@@ -42,3 +42,17 @@ export enum EMessageStatus {
     READ = 'read',
     UNREAD = 'unread',
 }
+export enum EDonationStatus {
+    PENDING = 'pending',
+    APPROVED = 'approved',
+    REJECTED = 'rejected',
+}
+
+export enum EPaymentMethod {
+    bKash = 'bkash',
+    Nagad = 'nagad',
+    Rocket = 'rocket',
+    Upay = 'upay',
+    Card = 'card',
+    Others = 'others',
+}
