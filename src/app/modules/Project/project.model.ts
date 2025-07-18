@@ -24,6 +24,10 @@ const ProjectSchema = new Schema(
             },
             required: [true, 'Project type is required'],
         },
+        image: {
+            type: String,
+            required: [true, 'image  is required'],
+        },
         projectName: {
             type: String,
             required: [true, 'Project name is required'],
