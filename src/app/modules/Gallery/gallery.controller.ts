@@ -22,6 +22,16 @@ const getImages = catchAsync(async (req, res) => {
         data: result,
     })
 })
+const deleteImage = catchAsync(async (req, res) => {
+    const galleryId = req.params.galleryId
+    const result = await GalleryServices.deleteImage(galleryId)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'image deleted successfully',
+        data: result,
+    })
+})
 
-const GalleryController = { upload, getImages }
+const GalleryController = { upload, getImages, deleteImage }
 export default GalleryController

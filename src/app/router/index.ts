@@ -7,6 +7,7 @@ import ProjectRoutes from '../modules/Project/project.router'
 import DashboardRouter from '../modules/dashboard/dashboard.router'
 import GalleryRoutes from '../modules/Gallery/gallery.router'
 import MessageRoutes from '../modules/Message/message.router'
+import AccountsTransactionRoutes from '../modules/AccountTransaction/accountTransaction.router'
 
 const router = Router()
 const routes = [
@@ -41,6 +42,10 @@ const routes = [
     {
         path: '/messages',
         route: MessageRoutes,
+    },
+    {
+        path: '/accounts-transactions',
+        route: AccountsTransactionRoutes,
     },
 ]
 

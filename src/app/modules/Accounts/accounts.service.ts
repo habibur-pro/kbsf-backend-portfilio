@@ -8,13 +8,15 @@ const createAccounts = async (payload: { userId: string }) => {
     if (!member) {
         throw new ApiError(httpsStatus.UNAUTHORIZED, 'unauthorize access')
     }
-    const existAccounts = await Accounts.findOne()
-    if (!existAccounts) {
-        await Accounts.deleteMany()
-    }
+    await Accounts.deleteMany()
     await Accounts.create({ adminId: member.id })
     return { message: 'accounts created' }
 }
 
-const AccountsServices = { createAccounts }
+const getAccount = async () => {
+    const account = await Accounts.findOne({})
+    return account
+}
+
+const AccountsServices = { createAccounts, getAccount }
 export default AccountsServices

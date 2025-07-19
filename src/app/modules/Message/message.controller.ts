@@ -31,6 +31,16 @@ const updateStatus = catchAsync(async (req, res) => {
         data: result,
     })
 })
+const deleteMessage = catchAsync(async (req, res) => {
+    const messageId = req.params.messageId
+    const result = await MessageServices.deleteMessage(messageId)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'messages deleted successfully',
+        data: result,
+    })
+})
 
-const MessageController = { send, getMessages, updateStatus }
+const MessageController = { send, getMessages, updateStatus, deleteMessage }
 export default MessageController

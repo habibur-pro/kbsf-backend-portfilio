@@ -1,4 +1,5 @@
 export interface IAccounts {
+    id: string
     adminId: string
     totalBalance: number
     totalCost: number

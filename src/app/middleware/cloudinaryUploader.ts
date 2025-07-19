@@ -47,7 +47,6 @@ export const cloudinaryUploader = (
     return async (req: Request, res: Response, next: NextFunction) => {
         multerHandler(req, res, async (err: any) => {
             if (err) return res.status(400).json({ error: err.message })
-
             try {
                 const files =
                     type === 'multiple'

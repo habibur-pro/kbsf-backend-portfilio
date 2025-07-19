@@ -12,7 +12,17 @@ const createAccounts = catchAsync(async (req, res) => {
         data: result,
     })
 })
+const getAccounts = catchAsync(async (req, res) => {
+    const result = await AccountsServices.getAccount()
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'accounts fetched successfully',
+        data: result,
+    })
+})
 const AccountsController = {
     createAccounts,
+    getAccounts,
 }
 export default AccountsController

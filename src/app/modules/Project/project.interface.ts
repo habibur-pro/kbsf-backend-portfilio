@@ -5,6 +5,7 @@ export interface IProject {
     projectNumber: number
     projectType: EProjectType
     projectName: string
+    image: string
     targetAmount: number
     currentAmount: number
     status: EProjectStatus

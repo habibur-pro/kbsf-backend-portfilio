@@ -1,4 +1,5 @@
 import { Types } from 'mongoose'
+import { EDonationStatus, EPaymentMethod } from '../../enum'
 
 export interface IDonation {
     id: string
@@ -6,11 +7,13 @@ export interface IDonation {
     userId: string
     amount: number
     transactionId: string
-    paymentMethod: string
+    paymentMethod: EPaymentMethod
     senderNumber: string
     projectId: string
     project: Types.ObjectId
-    status: string
+    projectName: string
+    status: EDonationStatus
+    notes: string
     createdAt: Date
     updatedAt: Date
 }

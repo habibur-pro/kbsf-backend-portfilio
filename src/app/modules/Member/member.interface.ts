@@ -5,6 +5,7 @@ export interface IMember {
     name: string
     phone: string
     fatherName: string
+    profession: string
     photo: string
     gender: EGender
     maritalStatus: EMaritalStatus

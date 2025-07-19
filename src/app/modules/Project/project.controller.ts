@@ -4,7 +4,7 @@ import catchAsync from '../../helpers/asyncHandler'
 import ProjectServices from './project.service'
 
 const addProject = catchAsync(async (req, res) => {
-    const result = await ProjectServices.addProject(req.body)
+    const result = await ProjectServices.addProject(req.body, req)
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -31,6 +31,32 @@ const getProject = catchAsync(async (req, res) => {
         data: result,
     })
 })
+const updateProject = catchAsync(async (req, res) => {
+    const projectId = req.params.projectId
+    const result = await ProjectServices.updateProject(projectId, req.body)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'project updated successfully',
+        data: result,
+    })
+})
+const deleteProject = catchAsync(async (req, res) => {
+    const projectId = req.params.projectId
+    const result = await ProjectServices.deleteProject(projectId)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'project deleted successfully',
+        data: result,
+    })
+})
 
-const ProjectController = { addProject, getProjects, getProject }
+const ProjectController = {
+    addProject,
+    getProjects,
+    getProject,
+    updateProject,
+    deleteProject,
+}
 export default ProjectController
