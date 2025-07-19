@@ -56,3 +56,8 @@ export enum EPaymentMethod {
     Card = 'card',
     Others = 'others',
 }
+
+export enum EAccountTransactionType {
+    Income = 'income',
+    Expense = 'expense',
+}
