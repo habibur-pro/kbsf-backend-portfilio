@@ -21,12 +21,13 @@ const createAccounts = (payload) => __awaiter(void 0, void 0, void 0, function* 
     if (!member) {
         throw new ApiErrot_1.default(http_status_1.default.UNAUTHORIZED, 'unauthorize access');
     }
-    const existAccounts = yield accounts_model_1.default.findOne();
-    if (!existAccounts) {
-        yield accounts_model_1.default.deleteMany();
-    }
+    yield accounts_model_1.default.deleteMany();
     yield accounts_model_1.default.create({ adminId: member.id });
     return { message: 'accounts created' };
 });
-const AccountsServices = { createAccounts };
+const getAccount = () => __awaiter(void 0, void 0, void 0, function* () {
+    const account = yield accounts_model_1.default.findOne({});
+    return account;
+});
+const AccountsServices = { createAccounts, getAccount };
 exports.default = AccountsServices;

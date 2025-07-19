@@ -35,5 +35,15 @@ const getImages = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, vo
         data: result,
     });
 }));
-const GalleryController = { upload, getImages };
+const deleteImage = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const galleryId = req.params.galleryId;
+    const result = yield gallery_service_1.default.deleteImage(galleryId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'image deleted successfully',
+        data: result,
+    });
+}));
+const GalleryController = { upload, getImages, deleteImage };
 exports.default = GalleryController;

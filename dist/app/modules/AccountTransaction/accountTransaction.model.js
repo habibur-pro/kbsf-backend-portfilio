@@ -12,70 +12,47 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Donation = void 0;
 const mongoose_1 = require("mongoose");
-const idGenerator_1 = __importDefault(require("../../helpers/idGenerator"));
 const enum_1 = require("../../enum");
-const DonationSchema = new mongoose_1.Schema({
+const idGenerator_1 = __importDefault(require("../../helpers/idGenerator"));
+const AccountTransactionSchema = new mongoose_1.Schema({
     id: {
         type: String,
-        required: [true, 'Donation ID is required'],
+        required: [true, 'is is required'],
         unique: true,
     },
-    name: {
+    category: {
         type: String,
-        default: '-',
+        required: [true, 'Category is required'],
     },
-    userId: {
+    type: {
         type: String,
-        default: null,
+        enum: {
+            values: Object.values(enum_1.EAccountTransactionType),
+            message: "Type must be either 'income' or 'expense'",
+        },
+        required: [true, 'Type is required'],
+    },
+    description: {
+        type: String,
+        required: [true, 'Description is required'],
     },
     amount: {
         type: Number,
         required: [true, 'Amount is required'],
     },
-    transactionId: {
+    adminId: {
         type: String,
-        default: null,
+        required: [true, 'Admin ID is required'],
     },
-    paymentMethod: {
+    reference: {
         type: String,
-        enum: Object.values(enum_1.EPaymentMethod),
-        default: enum_1.EPaymentMethod.Others,
-    },
-    senderNumber: {
-        type: String,
-        default: null,
-    },
-    projectId: {
-        type: String,
-        default: null,
-    },
-    project: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'project',
-        default: null,
-    },
-    projectName: {
-        type: String,
-        default: null,
-    },
-    notes: {
-        type: String,
-        default: null,
-    },
-    status: {
-        type: String,
-        enum: {
-            values: Object.values(enum_1.EDonationStatus),
-            message: 'Status must be either pending, approved, or rejected',
-        },
-        default: enum_1.EDonationStatus.APPROVED,
+        required: [true, 'Reference is required'],
     },
 }, {
     timestamps: true,
 });
-DonationSchema.pre('validate', function (next) {
+AccountTransactionSchema.pre('validate', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!this.id) {
             this.id = yield (0, idGenerator_1.default)(this.constructor);
@@ -83,4 +60,5 @@ DonationSchema.pre('validate', function (next) {
         next();
     });
 });
-exports.Donation = (0, mongoose_1.model)('donation', DonationSchema);
+const AccountTransaction = (0, mongoose_1.model)('accountTransaction', AccountTransactionSchema);
+exports.default = AccountTransaction;

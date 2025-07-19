@@ -20,6 +20,7 @@ const http_status_1 = __importDefault(require("http-status"));
 const accounts_model_1 = __importDefault(require("../Accounts/accounts.model"));
 const giveDonation = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const session = yield mongoose_1.default.startSession();
+    console.log(payload);
     session.startTransaction();
     try {
         const donationPayload = Object.assign({}, payload);
@@ -31,6 +32,7 @@ const giveDonation = (payload) => __awaiter(void 0, void 0, void 0, function* ()
                 throw new ApiErrot_1.default(http_status_1.default.BAD_REQUEST, 'project not found');
             yield project_model_1.default.findOneAndUpdate({ id: project.id }, { $inc: { currentAmount: payload.amount } }, { new: true, session });
             donationPayload.project = project._id;
+            donationPayload.projectName = project.projectName;
         }
         yield donation_model_1.Donation.create([donationPayload], { session });
         const accounts = yield accounts_model_1.default.findOne().session(session);

@@ -15,27 +15,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_1 = __importDefault(require("http-status"));
 const sendResponse_1 = __importDefault(require("../../helpers/sendResponse"));
 const asyncHandler_1 = __importDefault(require("../../helpers/asyncHandler"));
-const accounts_service_1 = __importDefault(require("./accounts.service"));
-const createAccounts = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield accounts_service_1.default.createAccounts(req.body);
+const accountTransaction_service_1 = __importDefault(require("./accountTransaction.service"));
+const addTransaction = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield accountTransaction_service_1.default.addTransaction(req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'accounts created successfully',
+        message: 'transaction added successfully',
         data: result,
     });
 }));
-const getAccounts = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield accounts_service_1.default.getAccount();
+const getTransactions = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield accountTransaction_service_1.default.getTransactions();
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'accounts fetched successfully',
+        message: 'transactions fetched successfully',
         data: result,
     });
 }));
-const AccountsController = {
-    createAccounts,
-    getAccounts,
+const updateTransaction = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const transactionId = req.params.transactionId;
+    const result = yield accountTransaction_service_1.default.updateTransaction(transactionId, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'transaction updated successfully',
+        data: result,
+    });
+}));
+const AccountTransactionController = {
+    addTransaction,
+    getTransactions,
+    updateTransaction,
 };
-exports.default = AccountsController;
+exports.default = AccountTransactionController;

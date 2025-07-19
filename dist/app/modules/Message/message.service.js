@@ -32,5 +32,9 @@ const updateStatus = (id, payload) => __awaiter(void 0, void 0, void 0, function
     yield message_model_1.default.findOneAndUpdate({ id }, payload, { new: true });
     return { message: 'status updated' };
 });
-const MessageServices = { send, getMessages, updateStatus };
+const deleteMessage = (messageId) => __awaiter(void 0, void 0, void 0, function* () {
+    yield message_model_1.default.findOneAndDelete({ id: messageId });
+    return { message: 'deleted' };
+});
+const MessageServices = { send, getMessages, updateStatus, deleteMessage };
 exports.default = MessageServices;

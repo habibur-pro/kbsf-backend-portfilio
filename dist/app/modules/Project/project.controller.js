@@ -17,7 +17,7 @@ const sendResponse_1 = __importDefault(require("../../helpers/sendResponse"));
 const asyncHandler_1 = __importDefault(require("../../helpers/asyncHandler"));
 const project_service_1 = __importDefault(require("./project.service"));
 const addProject = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield project_service_1.default.addProject(req.body);
+    const result = yield project_service_1.default.addProject(req.body, req);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -44,5 +44,31 @@ const getProject = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, v
         data: result,
     });
 }));
-const ProjectController = { addProject, getProjects, getProject };
+const updateProject = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const projectId = req.params.projectId;
+    const result = yield project_service_1.default.updateProject(projectId, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'project updated successfully',
+        data: result,
+    });
+}));
+const deleteProject = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const projectId = req.params.projectId;
+    const result = yield project_service_1.default.deleteProject(projectId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'project deleted successfully',
+        data: result,
+    });
+}));
+const ProjectController = {
+    addProject,
+    getProjects,
+    getProject,
+    updateProject,
+    deleteProject,
+};
 exports.default = ProjectController;

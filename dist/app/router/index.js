@@ -12,6 +12,7 @@ const project_router_1 = __importDefault(require("../modules/Project/project.rou
 const dashboard_router_1 = __importDefault(require("../modules/dashboard/dashboard.router"));
 const gallery_router_1 = __importDefault(require("../modules/Gallery/gallery.router"));
 const message_router_1 = __importDefault(require("../modules/Message/message.router"));
+const accountTransaction_router_1 = __importDefault(require("../modules/AccountTransaction/accountTransaction.router"));
 const router = (0, express_1.Router)();
 const routes = [
     {
@@ -45,6 +46,10 @@ const routes = [
     {
         path: '/messages',
         route: message_router_1.default,
+    },
+    {
+        path: '/accounts-transactions',
+        route: accountTransaction_router_1.default,
     },
 ];
 routes.map((route) => router.use(route.path, route.route));

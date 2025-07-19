@@ -135,10 +135,15 @@ const getDashboardSummary = () => __awaiter(void 0, void 0, void 0, function* ()
         const userEntry = dailyUsers.find((x) => x._id.year === y && x._id.month === m && x._id.day === d);
         return {
             label,
-            ডোনেশন: (donationEntry === null || donationEntry === void 0 ? void 0 : donationEntry.totalAmount) || 0,
-            'নতুন সদস্য': (userEntry === null || userEntry === void 0 ? void 0 : userEntry.count) || 0,
+            donations: (donationEntry === null || donationEntry === void 0 ? void 0 : donationEntry.totalAmount) || 0,
+            members: (userEntry === null || userEntry === void 0 ? void 0 : userEntry.count) || 0,
         };
     });
+    const newDonations = yield donation_model_1.Donation.find({
+        status: enum_1.EDonationStatus.APPROVED,
+    })
+        .sort({ createdAt: -1 })
+        .limit(5);
     return {
         totalDonation,
         totalDonationCount,
@@ -146,6 +151,7 @@ const getDashboardSummary = () => __awaiter(void 0, void 0, void 0, function* ()
         totalActiveProjects,
         last6MonthsChart,
         last7DaysChart,
+        newDonations,
     };
 });
 const DashboardServices = { getDashboardSummary };
