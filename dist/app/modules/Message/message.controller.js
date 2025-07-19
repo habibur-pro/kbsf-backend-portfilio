@@ -44,5 +44,15 @@ const updateStatus = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0,
         data: result,
     });
 }));
-const MessageController = { send, getMessages, updateStatus };
+const deleteMessage = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const messageId = req.params.messageId;
+    const result = yield message_service_1.default.deleteMessage(messageId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'messages deleted successfully',
+        data: result,
+    });
+}));
+const MessageController = { send, getMessages, updateStatus, deleteMessage };
 exports.default = MessageController;

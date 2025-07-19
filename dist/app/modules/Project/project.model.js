@@ -34,6 +34,10 @@ const ProjectSchema = new mongoose_1.Schema({
         },
         required: [true, 'Project type is required'],
     },
+    image: {
+        type: String,
+        required: [true, 'image  is required'],
+    },
     projectName: {
         type: String,
         required: [true, 'Project name is required'],
@@ -45,7 +49,6 @@ const ProjectSchema = new mongoose_1.Schema({
     },
     currentAmount: {
         type: Number,
-        required: [true, 'Current amount is required'],
         default: 0,
     },
     status: {
@@ -54,7 +57,7 @@ const ProjectSchema = new mongoose_1.Schema({
             values: Object.values(enum_1.EProjectStatus),
             message: 'Invalid project status',
         },
-        default: enum_1.EProjectStatus.UPCOMING,
+        default: enum_1.EProjectStatus.ACTIVE,
     },
     endDate: {
         type: Date,

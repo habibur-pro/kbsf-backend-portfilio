@@ -7,5 +7,6 @@ const express_1 = require("express");
 const accounts_controller_1 = __importDefault(require("./accounts.controller"));
 const router = (0, express_1.Router)();
 router.post('/', accounts_controller_1.default.createAccounts);
+router.get('/', accounts_controller_1.default.getAccounts);
 const AccountsRoutes = router;
 exports.default = AccountsRoutes;

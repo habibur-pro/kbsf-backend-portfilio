@@ -39,7 +39,6 @@ const ProjectSchema = new Schema(
         },
         currentAmount: {
             type: Number,
-            required: [true, 'Current amount is required'],
             default: 0,
         },
         status: {
@@ -48,7 +47,7 @@ const ProjectSchema = new Schema(
                 values: Object.values(EProjectStatus),
                 message: 'Invalid project status',
             },
-            default: EProjectStatus.UPCOMING,
+            default: EProjectStatus.ACTIVE,
         },
         endDate: {
             type: Date,

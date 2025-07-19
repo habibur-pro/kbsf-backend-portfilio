@@ -34,6 +34,10 @@ const MemberSchema = new mongoose_1.Schema({
         type: String,
         required: [true, "Father's name is required"],
     },
+    profession: {
+        type: String,
+        required: [true, 'profession  is required'],
+    },
     photo: {
         type: String,
         default: null,

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EMessageStatus = exports.EProjectStatus = exports.EProjectType = exports.EBloodGroup = exports.EMaritalStatus = exports.EGender = void 0;
+exports.EAccountTransactionType = exports.EPaymentMethod = exports.EDonationStatus = exports.EMessageStatus = exports.EProjectStatus = exports.EProjectType = exports.EBloodGroup = exports.EMaritalStatus = exports.EGender = void 0;
 var EGender;
 (function (EGender) {
     EGender["Male"] = "male";
@@ -47,3 +47,23 @@ var EMessageStatus;
     EMessageStatus["READ"] = "read";
     EMessageStatus["UNREAD"] = "unread";
 })(EMessageStatus || (exports.EMessageStatus = EMessageStatus = {}));
+var EDonationStatus;
+(function (EDonationStatus) {
+    EDonationStatus["PENDING"] = "pending";
+    EDonationStatus["APPROVED"] = "approved";
+    EDonationStatus["REJECTED"] = "rejected";
+})(EDonationStatus || (exports.EDonationStatus = EDonationStatus = {}));
+var EPaymentMethod;
+(function (EPaymentMethod) {
+    EPaymentMethod["bKash"] = "bkash";
+    EPaymentMethod["Nagad"] = "nagad";
+    EPaymentMethod["Rocket"] = "rocket";
+    EPaymentMethod["Upay"] = "upay";
+    EPaymentMethod["Card"] = "card";
+    EPaymentMethod["Others"] = "others";
+})(EPaymentMethod || (exports.EPaymentMethod = EPaymentMethod = {}));
+var EAccountTransactionType;
+(function (EAccountTransactionType) {
+    EAccountTransactionType["Income"] = "income";
+    EAccountTransactionType["Expense"] = "expense";
+})(EAccountTransactionType || (exports.EAccountTransactionType = EAccountTransactionType = {}));

@@ -9,5 +9,6 @@ const router = (0, express_1.Router)();
 router.get('/', message_controller_1.default.getMessages);
 router.post('/send', message_controller_1.default.send);
 router.patch('/:messageId/update', message_controller_1.default.updateStatus);
+router.delete('/:messageId/delete', message_controller_1.default.deleteMessage);
 const MessageRoutes = router;
 exports.default = MessageRoutes;
