@@ -12,7 +12,7 @@ const getMessages = async () => {
         if (a.status === b.status) {
             return b.createdAt.getTime() - a.createdAt.getTime()
         }
-        return a.status === 'unread' ? -1 : 1
+        return a.status === EMessageStatus.UNREAD ? -1 : 1
     })
     return messages
 }

@@ -45,7 +45,7 @@ const getDashboardSummary = () => __awaiter(void 0, void 0, void 0, function* ()
     const now = new Date();
     // 1. Total donation amount & count
     const donationStats = yield donation_model_1.Donation.aggregate([
-        { $match: { status: 'approved' } },
+        { $match: { status: enum_1.EDonationStatus.APPROVED } },
         {
             $group: {
                 _id: null,
@@ -72,7 +72,7 @@ const getDashboardSummary = () => __awaiter(void 0, void 0, void 0, function* ()
         const donation = yield donation_model_1.Donation.aggregate([
             {
                 $match: {
-                    status: 'approved',
+                    status: enum_1.EDonationStatus.APPROVED,
                     createdAt: { $gte: start, $lte: end },
                 },
             },
@@ -92,7 +92,7 @@ const getDashboardSummary = () => __awaiter(void 0, void 0, void 0, function* ()
         donation_model_1.Donation.aggregate([
             {
                 $match: {
-                    status: 'approved',
+                    status: enum_1.EDonationStatus.APPROVED,
                     createdAt: { $gte: startDate, $lte: endDate },
                 },
             },

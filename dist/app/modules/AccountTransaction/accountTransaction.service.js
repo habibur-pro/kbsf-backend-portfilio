@@ -111,32 +111,34 @@ const updateTransaction = (transactionId, payload) => __awaiter(void 0, void 0, 
             const type = transaction.type;
             const difference = newAmount - oldAmount;
             if (difference !== 0) {
-                const newTotalBalance = type === 'income'
+                const newTotalBalance = type === enum_1.EAccountTransactionType.Income
                     ? accounts.totalBalance + difference
                     : accounts.totalBalance - difference;
-                const newTotalEarning = type === 'income'
+                const newTotalEarning = type === enum_1.EAccountTransactionType.Income
                     ? accounts.totalEarning + difference
                     : accounts.totalEarning;
-                const newTotalCost = type === 'expense'
+                const newTotalCost = type === enum_1.EAccountTransactionType.Expense
                     ? accounts.totalCost + difference
                     : accounts.totalCost;
                 // ❌ Validate no negative values
                 if (newTotalBalance < 0) {
                     throw new ApiErrot_1.default(http_status_1.default.BAD_REQUEST, 'Transaction update failed: insufficient balance.');
                 }
-                if (type === 'income' && newTotalEarning < 0) {
+                if (type === enum_1.EAccountTransactionType.Income &&
+                    newTotalEarning < 0) {
                     throw new ApiErrot_1.default(http_status_1.default.BAD_REQUEST, 'Transaction update failed: insufficient balance.');
                 }
-                if (type === 'expense' && newTotalCost < 0) {
+                if (type === enum_1.EAccountTransactionType.Expense &&
+                    newTotalCost < 0) {
                     throw new ApiErrot_1.default(http_status_1.default.BAD_REQUEST, 'Transaction update failed: total cost cannot be negative.');
                 }
                 // ✅ Apply the update
                 const updateFields = {};
-                if (type === 'income') {
+                if (type === enum_1.EAccountTransactionType.Income) {
                     updateFields.totalBalance = difference;
                     updateFields.totalEarning = difference;
                 }
-                else if (type === 'expense') {
+                else if (type === enum_1.EAccountTransactionType.Expense) {
                     updateFields.totalBalance = -difference;
                     updateFields.totalCost = difference;
                 }
