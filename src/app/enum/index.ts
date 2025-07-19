@@ -1,15 +1,15 @@
 export enum EGender {
-    Male = 'male',
-    Female = 'female',
+    Male = 'পুরুষ',
+    Female = 'নারী',
 }
 
 export enum EMaritalStatus {
-    Single = 'single',
-    Married = 'married',
-    Divorced = 'divorced',
-    Widowed = 'widowed',
-    Separated = 'separated',
-    Other = 'other',
+    Single = 'অবিবাহিত',
+    Married = 'বিবাহিত',
+    Divorced = 'তালাকপ্রাপ্ত',
+    Widowed = 'বিধবা',
+    Separated = 'আলাদা ',
+    Other = 'অজানা',
 }
 
 export enum EBloodGroup {
@@ -24,28 +24,26 @@ export enum EBloodGroup {
 }
 
 export enum EProjectType {
-    Fundraising = 'fundraising',
-    Volunteer = 'volunteer',
+    Fundraising = 'তহবিল সংগ্রহ',
+    Volunteer = 'স্বেচ্ছাসেবক',
 }
 
 export enum EProjectStatus {
-    UPCOMING = 'upcoming',
-    ACTIVE = 'active',
-    COMPLETED = 'completed',
-    CANCELLED = 'cancelled',
-    PAUSED = 'paused',
-    DRAFT = 'draft',
-    CLOSED = 'closed',
-    ARCHIVED = 'archived',
+    UPCOMING = 'আসন্ন',
+    ACTIVE = 'চলমান',
+    COMPLETED = 'সম্পন্ন',
+    CANCELLED = 'বাতিল',
+    PAUSED = 'বিরতি',
+    CLOSED = 'বন্ধ',
 }
 export enum EMessageStatus {
-    READ = 'read',
-    UNREAD = 'unread',
+    READ = 'পড়া হয়েছে',
+    UNREAD = 'অপঠিত',
 }
 export enum EDonationStatus {
-    PENDING = 'pending',
-    APPROVED = 'approved',
-    REJECTED = 'rejected',
+    PENDING = 'অপেক্ষমাণ',
+    APPROVED = 'অনুমোদিত',
+    REJECTED = 'প্রত্যাখ্যাত',
 }
 
 export enum EPaymentMethod {
@@ -58,6 +56,6 @@ export enum EPaymentMethod {
 }
 
 export enum EAccountTransactionType {
-    Income = 'income',
-    Expense = 'expense',
+    Income = 'আয়',
+    Expense = 'ব্যায়',
 }

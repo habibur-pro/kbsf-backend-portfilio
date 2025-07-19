@@ -39,7 +39,7 @@ const getDashboardSummary = async () => {
 
     // 1. Total donation amount & count
     const donationStats = await Donation.aggregate([
-        { $match: { status: 'approved' } },
+        { $match: { status: EDonationStatus.APPROVED } },
         {
             $group: {
                 _id: null,
@@ -70,7 +70,7 @@ const getDashboardSummary = async () => {
             const donation = await Donation.aggregate([
                 {
                     $match: {
-                        status: 'approved',
+                        status: EDonationStatus.APPROVED,
                         createdAt: { $gte: start, $lte: end },
                     },
                 },
@@ -94,7 +94,7 @@ const getDashboardSummary = async () => {
         Donation.aggregate([
             {
                 $match: {
-                    status: 'approved',
+                    status: EDonationStatus.APPROVED,
                     createdAt: { $gte: startDate, $lte: endDate },
                 },
             },

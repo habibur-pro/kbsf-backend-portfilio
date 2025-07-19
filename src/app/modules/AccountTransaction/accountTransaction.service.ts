@@ -143,17 +143,17 @@ const updateTransaction = async (
 
             if (difference !== 0) {
                 const newTotalBalance =
-                    type === 'income'
+                    type === EAccountTransactionType.Income
                         ? accounts.totalBalance + difference
                         : accounts.totalBalance - difference
 
                 const newTotalEarning =
-                    type === 'income'
+                    type === EAccountTransactionType.Income
                         ? accounts.totalEarning + difference
                         : accounts.totalEarning
 
                 const newTotalCost =
-                    type === 'expense'
+                    type === EAccountTransactionType.Expense
                         ? accounts.totalCost + difference
                         : accounts.totalCost
 
@@ -165,14 +165,20 @@ const updateTransaction = async (
                     )
                 }
 
-                if (type === 'income' && newTotalEarning < 0) {
+                if (
+                    type === EAccountTransactionType.Income &&
+                    newTotalEarning < 0
+                ) {
                     throw new ApiError(
                         httpStatus.BAD_REQUEST,
                         'Transaction update failed: insufficient balance.'
                     )
                 }
 
-                if (type === 'expense' && newTotalCost < 0) {
+                if (
+                    type === EAccountTransactionType.Expense &&
+                    newTotalCost < 0
+                ) {
                     throw new ApiError(
                         httpStatus.BAD_REQUEST,
                         'Transaction update failed: total cost cannot be negative.'
@@ -182,10 +188,10 @@ const updateTransaction = async (
                 // ✅ Apply the update
                 const updateFields: Record<string, number> = {}
 
-                if (type === 'income') {
+                if (type === EAccountTransactionType.Income) {
                     updateFields.totalBalance = difference
                     updateFields.totalEarning = difference
-                } else if (type === 'expense') {
+                } else if (type === EAccountTransactionType.Expense) {
                     updateFields.totalBalance = -difference
                     updateFields.totalCost = difference
                 }

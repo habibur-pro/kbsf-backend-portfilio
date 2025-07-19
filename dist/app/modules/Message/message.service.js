@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const enum_1 = require("../../enum");
 const message_model_1 = __importDefault(require("./message.model"));
 const send = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield message_model_1.default.create(payload);
@@ -23,7 +24,7 @@ const getMessages = () => __awaiter(void 0, void 0, void 0, function* () {
         if (a.status === b.status) {
             return b.createdAt.getTime() - a.createdAt.getTime();
         }
-        return a.status === 'unread' ? -1 : 1;
+        return a.status === enum_1.EMessageStatus.UNREAD ? -1 : 1;
     });
     return messages;
 });
