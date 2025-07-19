@@ -18,6 +18,10 @@ const MessageSchema = new Schema<IMessage>(
             type: String,
             required: [true, 'Phone number is required'],
         },
+        subject: {
+            type: String,
+            required: [true, 'subject is required'],
+        },
         message: {
             type: String,
             required: [true, 'Message content is required'],

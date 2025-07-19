@@ -26,5 +26,10 @@ const updateStatus = async (
     return { message: 'status updated' }
 }
 
-const MessageServices = { send, getMessages, updateStatus }
+const deleteMessage = async (messageId: string) => {
+    await Message.findOneAndDelete({ id: messageId })
+    return { message: 'deleted' }
+}
+
+const MessageServices = { send, getMessages, updateStatus, deleteMessage }
 export default MessageServices
