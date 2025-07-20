@@ -5,6 +5,7 @@ import httpStatus from 'http-status'
 import bcrypt from 'bcrypt'
 import Auth from '../Auth/auth.model'
 import mongoose from 'mongoose'
+import { IAuth } from '../Auth/auth.interface'
 export interface IMemberPayload extends Partial<IMember> {
     password?: string
 }
@@ -101,11 +102,70 @@ const createAdmin = async (memberId: string) => {
         await session.endSession()
     }
 }
+interface IPayloadAddUser extends Partial<IMember> {
+    password?: string
+}
+const updateMember = async (memberId: string, payload: IPayloadAddUser) => {
+    const session = await mongoose.startSession()
+    session.startTransaction()
+    try {
+        const member = await Member.findOne({ id: memberId }).session(session)
+        if (!member) throw new Error('Member not found')
+
+        await Member.findOneAndUpdate({ id: memberId }, payload, {
+            new: true,
+            session,
+        })
+
+        const authUpdateFields: Partial<IAuth> = {}
+
+        if (payload.phone) authUpdateFields.phone = payload.phone
+        if (payload.email) authUpdateFields.email = payload.email
+        if (payload.role) authUpdateFields.role = payload.role
+        if (payload.password) authUpdateFields.role = payload.password
+
+        if (Object.keys(authUpdateFields).length > 0) {
+            await Auth.findOneAndUpdate(
+                { userId: member.id },
+                authUpdateFields,
+                { new: true, session }
+            )
+        }
+        await session.commitTransaction()
+        return { message: 'updated' }
+    } catch (error: any) {
+        await session.abortTransaction()
+        throw new ApiError(
+            httpStatus.BAD_REQUEST,
+            error?.message || 'something went wrong'
+        )
+    } finally {
+        await session.endSession()
+    }
+}
+
+const deleteMember = async (memberId: string) => {
+    const session = await mongoose.startSession()
+    session.startTransaction()
+    try {
+        await Member.findOneAndDelete({ id: memberId }, { session })
+        await Auth.findOneAndDelete({ userId: memberId }, { session })
+        await session.commitTransaction()
+        return { message: 'deleted' }
+    } catch (error) {
+        await session.abortTransaction()
+        throw error // optionally rethrow or handle error
+    } finally {
+        session.endSession()
+    }
+}
 
 const MemberServices = {
     addMember,
     getMembers,
     getMember,
     createAdmin,
+    updateMember,
+    deleteMember,
 }
 export default MemberServices

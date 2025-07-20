@@ -54,10 +54,32 @@ const createAdmin = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, 
         data: result,
     });
 }));
+const updateMember = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const memberId = req.params.memberId;
+    const result = yield member_service_1.default.updateMember(memberId, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'member updated successfully',
+        data: result,
+    });
+}));
+const deleteMember = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const memberId = req.params.memberId;
+    const result = yield member_service_1.default.deleteMember(memberId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'member deleted successfully',
+        data: result,
+    });
+}));
 const MemberController = {
     addMember,
     getMembers,
     getMember,
     createAdmin,
+    updateMember,
+    deleteMember,
 };
 exports.default = MemberController;

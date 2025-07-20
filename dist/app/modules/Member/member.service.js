@@ -86,10 +86,63 @@ const createAdmin = (memberId) => __awaiter(void 0, void 0, void 0, function* ()
         yield session.endSession();
     }
 });
+const updateMember = (memberId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const session = yield mongoose_1.default.startSession();
+    session.startTransaction();
+    try {
+        const member = yield member_model_1.default.findOne({ id: memberId }).session(session);
+        if (!member)
+            throw new Error('Member not found');
+        yield member_model_1.default.findOneAndUpdate({ id: memberId }, payload, {
+            new: true,
+            session,
+        });
+        const authUpdateFields = {};
+        if (payload.phone)
+            authUpdateFields.phone = payload.phone;
+        if (payload.email)
+            authUpdateFields.email = payload.email;
+        if (payload.role)
+            authUpdateFields.role = payload.role;
+        if (payload.password)
+            authUpdateFields.role = payload.password;
+        if (Object.keys(authUpdateFields).length > 0) {
+            yield auth_model_1.default.findOneAndUpdate({ userId: member.id }, authUpdateFields, { new: true, session });
+        }
+        yield session.commitTransaction();
+        return { message: 'updated' };
+    }
+    catch (error) {
+        yield session.abortTransaction();
+        throw new ApiErrot_1.default(http_status_1.default.BAD_REQUEST, (error === null || error === void 0 ? void 0 : error.message) || 'something went wrong');
+    }
+    finally {
+        yield session.endSession();
+    }
+});
+const deleteMember = (memberId) => __awaiter(void 0, void 0, void 0, function* () {
+    const session = yield mongoose_1.default.startSession();
+    session.startTransaction();
+    try {
+        yield member_model_1.default.findOneAndDelete({ id: memberId }, { session });
+        yield auth_model_1.default.findOneAndDelete({ userId: memberId }, { session });
+        yield session.commitTransaction();
+        return { message: 'deleted' };
+    }
+    catch (error) {
+        yield session.abortTransaction();
+        throw error; // optionally rethrow or handle error
+    }
+    finally {
+        session.endSession();
+    }
+});
 const MemberServices = {
     addMember,
     getMembers,
     getMember,
     createAdmin,
+    updateMember,
+    deleteMember,
 };
 exports.default = MemberServices;

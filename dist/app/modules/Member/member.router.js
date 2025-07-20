@@ -10,5 +10,7 @@ router.post('/add', member_controller_1.default.addMember);
 router.get('/:id', member_controller_1.default.getMember);
 router.get('/', member_controller_1.default.getMembers);
 router.patch('/:memberId/make-admin', member_controller_1.default.createAdmin);
+router.patch('/:memberId/update', member_controller_1.default.updateMember);
+router.delete('/:memberId/delete', member_controller_1.default.deleteMember);
 const MemberRoutes = router;
 exports.default = MemberRoutes;
