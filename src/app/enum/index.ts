@@ -52,6 +52,7 @@ export enum EPaymentMethod {
     Rocket = 'rocket',
     Upay = 'upay',
     Card = 'card',
+    SSl = 'ssl',
     Others = 'others',
 }
 

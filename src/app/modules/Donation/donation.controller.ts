@@ -31,10 +31,28 @@ const getDonation = catchAsync(async (req, res) => {
         data: result,
     })
 })
+const initiateDonation = catchAsync(async (req, res) => {
+    const result = await DonationServices.initiateDonation(req)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'donation initiated successfully',
+        data: result,
+    })
+})
+const successPayment = catchAsync(async (req, res) => {
+    await DonationServices.successPayment(req, res)
+})
+const failPayment = catchAsync(async (req, res) => {
+    await DonationServices.failedPayment(req, res)
+})
 
 const DonationController = {
     giveDonation,
     getDonations,
     getDonation,
+    initiateDonation,
+    successPayment,
+    failPayment,
 }
 export default DonationController
