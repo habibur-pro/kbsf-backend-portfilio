@@ -14,5 +14,8 @@ const config = {
     cloudinary_cloud: process.env.CLOUDINARY_CLOUD,
     cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
     cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
+    ssl_store_id: process.env.SSL_STORE_ID,
+    ssl_store_pass: process.env.SSL_STORE_PASS,
+    frontend_url: process.env.FRONTEND_URL,
 };
 exports.default = config;

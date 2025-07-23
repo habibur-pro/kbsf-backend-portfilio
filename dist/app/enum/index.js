@@ -58,6 +58,7 @@ var EPaymentMethod;
     EPaymentMethod["Rocket"] = "rocket";
     EPaymentMethod["Upay"] = "upay";
     EPaymentMethod["Card"] = "card";
+    EPaymentMethod["SSl"] = "ssl";
     EPaymentMethod["Others"] = "others";
 })(EPaymentMethod || (exports.EPaymentMethod = EPaymentMethod = {}));
 var EAccountTransactionType;
