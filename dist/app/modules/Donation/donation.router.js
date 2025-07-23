@@ -9,5 +9,8 @@ const router = (0, express_1.Router)();
 router.post('/', donation_controller_1.default.giveDonation);
 router.get('/', donation_controller_1.default.getDonations);
 router.get('/:donationId', donation_controller_1.default.getDonation);
+router.post('/initiate', donation_controller_1.default.initiateDonation);
+router.post('/success/:tranId', donation_controller_1.default.successPayment);
+router.post('/fail/:tranId', donation_controller_1.default.failPayment);
 const DonationRouter = router;
 exports.default = DonationRouter;

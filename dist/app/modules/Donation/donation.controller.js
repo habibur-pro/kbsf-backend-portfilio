@@ -44,9 +44,27 @@ const getDonation = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, 
         data: result,
     });
 }));
+const initiateDonation = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield donation_service_1.default.initiateDonation(req);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'donation initiated successfully',
+        data: result,
+    });
+}));
+const successPayment = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield donation_service_1.default.successPayment(req, res);
+}));
+const failPayment = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield donation_service_1.default.failedPayment(req, res);
+}));
 const DonationController = {
     giveDonation,
     getDonations,
     getDonation,
+    initiateDonation,
+    successPayment,
+    failPayment,
 };
 exports.default = DonationController;
